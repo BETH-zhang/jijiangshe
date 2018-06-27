@@ -1,0 +1,13 @@
+{
+  "name": "webtest",
+  "version": "1.0.0",
+  "description": "Node.js on Docker",
+  "author": "beth",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.13.3"
+  }
+}
