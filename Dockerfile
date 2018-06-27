@@ -1,11 +1,16 @@
-FROM hub.c.163.com/nce2/nodejs:0.12.2
+FROM harbor.smartstudy.com/public/node:8.9.1
 
-RUN mkdir -p /var/www/project/jijiangshe
-WORKDIR /var/www/project/jijiangshe
+ENV NODE_ENV production
 
-COPY . /var/www/project/jijiangshe
-RUN npm install express --save
+ADD . /home/node/code
+
+RUN cd /home/node/code \
+    && cnpm install --production \
+    && chown -R node.node /home/node/code
+
+WORKDIR /home/node/code
 
 EXPOSE 8888
 
-CMD ["npm", "start"]
+USER node
+CMD ["node", "index.js"]
