@@ -1,4 +1,4 @@
-FROM harbor.smartstudy.com/public/node:8.9.1
+FROM bbnode8/ubuntu:v2
 
 ENV NODE_ENV production
 
