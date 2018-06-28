@@ -1,11 +1,14 @@
-FROM hub.c.163.com/nce2/nodejs:0.12.2
+FROM bbnode8/ubuntu:v2
+
+ENV NODE_ENV production
+
 
 RUN mkdir -p /var/www/project/jijiangshe
 WORKDIR /var/www/project/jijiangshe
 
 COPY . /var/www/project/jijiangshe
-RUN npm install express --save
+RUN npm install
 
 EXPOSE 8888
 
-CMD ["npm", "start"]
+CMD ["node", "index.js"]
