@@ -29,7 +29,8 @@
     "pg": "^7.4.1",
     "pg-hstore": "^2.3.2",
     "sequelize": "^4.32.0",
-    "sequelize-cli": "^3.2.0"
+    "sequelize-cli": "^3.2.0",
+    "validator": "^10.4.0"
   },
   "devDependencies": {
     "intelli-espower-loader": "^1.0.1",
