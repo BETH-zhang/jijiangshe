@@ -1,8 +1,9 @@
 const createApp = require('./create-app')
-const CFG = require('./config');
+const init = require('./init');
 
 async function start() {
   try {
+    await init();
     console.log('Init success')
 
     // 一切就绪，最后启动服务
