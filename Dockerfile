@@ -8,6 +8,7 @@ WORKDIR /var/www/project/jijiangshe-admin
 
 COPY . /var/www/project/jijiangshe-admin
 RUN npm install
+RUN npm run build
 
 EXPOSE 7002
 
