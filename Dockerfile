@@ -9,6 +9,8 @@ WORKDIR /var/www/project/jijiangshe-admin
 COPY . /var/www/project/jijiangshe-admin
 RUN npm install
 
-EXPOSE 8889
+EXPOSE 7002
 
 CMD ["node", "index.js"]
+
+
