@@ -23,5 +23,6 @@ router.use(
 // 每周工作记录相关
 // 人脸识别相关
 // 技能树相关
+// 新技术研究相关
 
 module.exports = router
