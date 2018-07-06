@@ -31,5 +31,6 @@ router.use(
 // 书籍整理相关
 // 兴趣活动相关
 // 个人成长相关
+// 创意搜集相关
 
 module.exports = router
