@@ -7,7 +7,7 @@ function IndexPage() {
     <div className={styles.normal}>
       <h1 className={styles.title}>Yay! Welcome to jijiangshe!</h1>
       <div className={styles.welcome} />
-      1
+
     </div>
   );
 }
