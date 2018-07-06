@@ -35,3 +35,8 @@ exports.getList = async (ctx) => {
   const res = await Share.findAll() || [];
   ctx.data = res;
 }
+
+exports.putItem = (ctx) => {
+  console.log(ctx);
+  ctx.data = ctx;
+}
