@@ -6,14 +6,18 @@ router.get('/healthCheck', ctx => {ctx.body = 'ok'})
 
 router.all('/callback/echo', callback.echo)
 
+// 用户相关
 router.use(
   '/api/common',
   require('./common').routes()
 );
 
+// 分享相关
 router.use(
   '/api/share',
   require('./share').routes()
 );
+
+// 人工智能相关
 
 module.exports = router
