@@ -1,0 +1,14 @@
+FROM bbnode8/ubuntu:v2
+
+ENV NODE_ENV production
+
+
+RUN mkdir -p /var/www/project/jijiangshe-admin
+WORKDIR /var/www/project/jijiangshe-admin
+
+COPY . /var/www/project/jijiangshe-admin
+RUN npm install
+
+EXPOSE 8889
+
+CMD ["node", "index.js"]
