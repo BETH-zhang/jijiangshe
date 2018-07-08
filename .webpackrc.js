@@ -11,7 +11,6 @@ export default {
   externals: {
     '@antv/data-set': 'DataSet',
     bizcharts: 'BizCharts',
-    rollbar: 'rollbar',
   },
   alias: {
     components: path.resolve(__dirname, 'src/components/'),
