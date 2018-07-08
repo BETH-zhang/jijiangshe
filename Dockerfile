@@ -1,6 +1,6 @@
 FROM bbnode8/ubuntu:v2
 
-ENV NODE_ENV development
+ENV NODE_ENV production
 
 
 RUN mkdir -p /var/www/project/jijiangshe-admin
