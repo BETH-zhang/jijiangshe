@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
       unique: true,
       allowNull: false,
     },
-    group: {
+    tagId: {
       type: DataTypes.STRING,
       allowNull: false,
     },
@@ -29,7 +29,8 @@ module.exports = (sequelize, DataTypes) => {
     },
     description: {
       type: DataTypes.STRING,
-      allowNull: true,
+      allowNull: false,
+      defaultValue: '',
     },
   };
 

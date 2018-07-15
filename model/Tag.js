@@ -7,29 +7,21 @@ module.exports = (sequelize, DataTypes) => {
     },
     name: {
       type: DataTypes.STRING,
-      allowNull: false,
-    },
-    phone: {
-      type: DataTypes.STRING,
       unique: true,
-      validate: {
-        is: /^[0-g]+$/g,
-      },
       allowNull: false,
     },
-    source: {
+    type: {
       type: DataTypes.STRING,
       allowNull: false,
-      defaultValue: '',
-    }
+    },
   };
 
-  const User = sequelize.define('User', data, {
-    tableName: 'user',
+  const Tag = sequelize.define('Tag', data, {
+    tableName: 'tag',
   });
 
   return {
-    User,
-    dataUser: data
+    Tag,
+    dataTag: data
   };
 };

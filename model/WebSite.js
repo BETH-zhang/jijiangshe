@@ -16,12 +16,18 @@ module.exports = (sequelize, DataTypes) => {
     },
     description: {
       type: DataTypes.STRING,
-      allowNull: true,
+      allowNull: false,
+      defaultValue: '',
     },
     logo: {
       type: DataTypes.STRING,
-      allowNull: true
-    }
+      allowNull: false,
+      defaultValue: '',
+    },
+    tagId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
   };
 
   const WebSite = sequelize.define('WebSite', data, {

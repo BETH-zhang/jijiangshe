@@ -5,6 +5,14 @@ module.exports = (sequelize, DataTypes) => {
       primaryKey: true,
       autoIncrement: true
     },
+    userId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+    operation: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
     userAgent: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -20,12 +28,12 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
 
-  const Source = sequelize.define('Source', data, {
-    tableName: 'source',
+  const Log = sequelize.define('Log', data, {
+    tableName: 'log',
   });
 
   return {
-    Source,
-    dataSource: data,
+    Log,
+    dataLog: data,
   };
 };
