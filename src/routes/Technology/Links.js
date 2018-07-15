@@ -7,8 +7,9 @@ import { Row, Col, Card, List, Avatar } from 'antd';
 import { Radar } from 'components/Charts';
 import EditableLinkGroup from 'components/EditableLinkGroup';
 import PageHeaderLayout from '../../layouts/PageHeaderLayout';
+import bethLogo from '../../assets/beth.jpeg';
 
-import styles from './Workplace.less';
+import styles from './Links.less';
 
 const links = [
   {
@@ -70,13 +71,18 @@ const members = [
   },
 ];
 
-@connect(({ project, activities, chart, loading }) => ({
-  project,
-  activities,
-  chart,
-  projectLoading: loading.effects['project/fetchNotice'],
-  activitiesLoading: loading.effects['activities/fetchList'],
-}))
+@connect(({ project, activities, chart, loading }) => {
+  // console.log(links, loading, '????');
+  return {
+    project,
+    activities,
+    chart,
+    // links,
+    projectLoading: loading.effects['project/fetchNotice'],
+    activitiesLoading: loading.effects['activities/fetchList'],
+    // linksLoading: loading.effects['links/fetchList'],
+  };
+})
 export default class Workplace extends PureComponent {
   componentDidMount() {
     const { dispatch } = this.props;
@@ -89,6 +95,9 @@ export default class Workplace extends PureComponent {
     dispatch({
       type: 'chart/fetch',
     });
+    // dispatch({
+    //   type: 'links/fetchList',
+    // });
   }
 
   componentWillUnmount() {
@@ -146,14 +155,11 @@ export default class Workplace extends PureComponent {
     const pageHeaderContent = (
       <div className={styles.pageHeaderContent}>
         <div className={styles.avatar}>
-          <Avatar
-            size="large"
-            src="https://gw.alipayobjects.com/zos/rmsportal/BiazfanxmamNRoxxVxka.png"
-          />
+          <Avatar size="large" src={bethLogo} />
         </div>
         <div className={styles.content}>
-          <div className={styles.contentTitle}>早安，曲丽丽，祝你开心每一天！</div>
-          <div>交互专家 | 蚂蚁金服－某某某事业群－某某平台部－某某技术部－UED</div>
+          <div className={styles.contentTitle}>早安，Beth，祝你开心每一天！</div>
+          <div>前端技术经理 | 智课教育-USKid事业部-技术部-前端组</div>
         </div>
       </div>
     );

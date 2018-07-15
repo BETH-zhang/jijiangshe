@@ -1,9 +1,80 @@
 import { stringify } from 'qs';
+import assign from 'lodash/assign';
 import request from '../utils/request';
 import config from '../common/config';
 
-export async function queryItem() {
-  return request(`${config.api}/get?token=`);
+export async function queryList(params) {
+  return request(
+    `${config.api}/api/common/gets?${stringify(
+      assign(params, {
+        token: config.token,
+      })
+    )}`
+  );
+}
+
+export async function queryDetail(params) {
+  return request(
+    `${config.api}/api/common/get?${stringify(
+      assign(params, {
+        token: config.token,
+      })
+    )}`
+  );
+}
+
+export async function addData(params) {
+  return request(
+    `${config.api}/api/common/post?${stringify({
+      token: config.token,
+      sql: params.sql,
+    })}`,
+    {
+      method: 'POST',
+      body: params,
+    }
+  );
+}
+
+export async function addDatas(params) {
+  return request(
+    `${config.api}/api/common/posts?${stringify({
+      token: config.token,
+      sql: params.sql,
+    })}`,
+    {
+      method: 'POST',
+      body: {
+        data: params.data,
+      },
+    }
+  );
+}
+
+export async function updateData(params) {
+  return request(
+    `${config.api}/api/common/update?${stringify({
+      token: config.token,
+      sql: params.sql,
+    })}`,
+    {
+      method: 'POST',
+      body: params,
+    }
+  );
+}
+
+export async function deleteData(params) {
+  return request(
+    `${config.api}/api/common/delete?${stringify({
+      token: config.token,
+      sql: params.sql,
+    })}`,
+    {
+      method: 'POST',
+      body: params,
+    }
+  );
 }
 
 export async function queryProjectNotice() {
