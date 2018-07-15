@@ -4,22 +4,49 @@ const menuData = [
   {
     name: '技术相关',
     icon: 'dashboard',
+    path: 'technology',
     children: [
       {
         name: '链接库',
+        path: 'links',
       },
-      { name: '分享会' },
-      { name: 'TODO' },
-      { name: '工作报告' },
-      { name: '新技术调研' },
+      {
+        name: '分享会',
+        path: 'share',
+      },
+      {
+        name: 'TODO',
+        path: 'todo',
+      },
+      {
+        name: '工作报告',
+        path: 'report',
+      },
+      {
+        name: '新技术调研',
+        path: 'innovate',
+      },
     ],
   },
   {
     name: '产品相关',
-    icon: '',
-    children: [{ name: '需求收集' }, { name: '需求分析' }, { name: '需求决策' }],
+    icon: 'dashboard',
+    path: 'product',
+    children: [
+      {
+        name: '需求收集',
+        path: 'collection',
+      },
+      {
+        name: '需求分析',
+        path: 'analysis',
+      },
+      {
+        name: '需求决策',
+        path: 'decision',
+      },
+    ],
   },
-
   {
     name: 'dashboard',
     icon: 'dashboard',

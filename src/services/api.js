@@ -1,5 +1,10 @@
 import { stringify } from 'qs';
 import request from '../utils/request';
+import config from '../common/config';
+
+export async function queryItem() {
+  return request(`${config.api}/get?token=`);
+}
 
 export async function queryProjectNotice() {
   return request('/api/project/notice');
