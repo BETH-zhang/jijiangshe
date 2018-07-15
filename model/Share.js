@@ -30,12 +30,12 @@ module.exports = (sequelize, DataTypes) => {
       }
     },
     schedule: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.DATE,
       allowNull: false,
     },
     address: {
       type: DataTypes.STRING,
-      allowNull: true,
+      allowNull: false,
       defaultValue: '富海大厦',
     },
     link: {
