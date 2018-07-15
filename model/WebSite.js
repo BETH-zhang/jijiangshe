@@ -5,30 +5,31 @@ module.exports = (sequelize, DataTypes) => {
       primaryKey: true,
       autoIncrement: true
     },
-    name: {
+    title: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    phone: {
+    link: {
       type: DataTypes.STRING,
       unique: true,
-      validate: {
-        is: /^[0-g]+$/g,
-      },
       allowNull: false,
     },
-    source: {
+    description: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    logo: {
       type: DataTypes.STRING,
       allowNull: true
     }
   };
 
-  const User = sequelize.define('User', data, {
-    tableName: 'user',
+  const WebSite = sequelize.define('WebSite', data, {
+    tableName: 'website',
   });
 
   return {
-    User,
-    dataUser: data
+    WebSite,
+    dataWebSite: data
   };
 };

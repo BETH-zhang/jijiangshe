@@ -1,6 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
-
-  const Source = sequelize.define('Source', {
+  const data = {
     id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
@@ -8,16 +7,25 @@ module.exports = (sequelize, DataTypes) => {
     },
     userAgent: {
       type: DataTypes.STRING,
+      allowNull: false,
     },
     userIp: {
-      type: DataTypes.STRING
+      type: DataTypes.STRING,
+      unique: true,
+      allowNull: false,
     },
     platform: {
       type: DataTypes.STRING,
+      allowNull: false,
     }
-  }, {
+  };
+
+  const Source = sequelize.define('Source', data, {
     tableName: 'source',
   });
 
-  return Source;
+  return {
+    Source,
+    dataSource: data,
+  };
 };

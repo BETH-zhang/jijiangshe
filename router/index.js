@@ -6,6 +6,9 @@ router.get('/healthCheck', ctx => {ctx.body = 'ok'})
 
 router.all('/callback/echo', callback.echo)
 
+router.get('/api/common/get', callback.getLists)
+router.post('/api/common/post', callback.postItem);
+
 // 用户相关
 router.use(
   '/api/common',

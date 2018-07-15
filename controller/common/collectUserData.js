@@ -9,14 +9,10 @@ const { User } = sequelize.models;
  * @returns {Promise<void>}
  */
 exports.postUser = async (ctx) => {
-  console.log('-----------------------------')
-  const userAgent = ctx.headers['user-agent'];
-  const userIp = common.getIp(ctx);
+  console.log('-----------------------------', ctx.request.body)
   const name = ctx.request.body.name;
   const phone = ctx.request.body.phone;
-  const platform = ctx.request.body.platform;
-  const c = ctx.request.body.c;
-  console.log(userAgent, userIp, name, phone, platform, c);
+  const source = ctx.request.body.source;
   if (!name) {
     ctx.body = { code: 1, msg: '用户名不能为空' };
   } else if (common.isName(name)) {
@@ -31,7 +27,7 @@ exports.postUser = async (ctx) => {
     if (res && res.dataValues) {
       ctx.body = { code: 1, msg: '手机号已存在' } 
     } else {
-      await User.create({ name, phone, userAgent, userIp, platform, c });
+      await User.create({ name, phone, source });
       ctx.data = '恭喜你注册成功';
     }
   }
@@ -51,12 +47,10 @@ exports.getUsers = async (ctx) => {
   const token = ctx.request.query.token;
   let res = await User.findAll() || [];
   let data = [];
-  if (res.length && token === 'o3i6dqtgmq756rirl7j3omnqfi') {
+  if (res.length && token === 'bethroot') {
     data = res.map((item) => (formatText(item, {
       name: '姓名',
       phone: '手机号',
-      platform: '平台',
-      c: '渠道',
       createdAt: '时间'
     })))
     ctx.body = data.join('\n');
