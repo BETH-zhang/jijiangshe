@@ -8,7 +8,16 @@ const menuData = [
       {
         name: '链接库',
       },
+      { name: '分享会' },
+      { name: 'TODO' },
+      { name: '工作报告' },
+      { name: '新技术调研' },
     ],
+  },
+  {
+    name: '产品相关',
+    icon: '',
+    children: [{ name: '需求收集' }, { name: '需求分析' }, { name: '需求决策' }],
   },
 
   {
