@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "copy": "cp config/index.js config/my.js",
     "start": "node index.js",
     "test": "./node_modules/.bin/mocha"
   },
