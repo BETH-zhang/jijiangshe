@@ -5,9 +5,10 @@
   "private": true,
   "scripts": {
     "precommit": "npm run lint-staged",
+    "copy": "cp src/common/config.js.example src/common/config.js",
     "start": "cross-env ESLINT=none roadhog dev",
     "start:no-proxy": "cross-env NO_PROXY=true ESLINT=none roadhog dev",
-    "build": "cross-env ESLINT=none roadhog build",
+    "build": "cross-env NO_PROXY=false ESLINT=none roadhog build",
     "site": "roadhog-api-doc static && gh-pages -d dist",
     "analyze": "cross-env ANALYZE=true roadhog build",
     "lint:style": "stylelint \"src/**/*.less\" --syntax less",
