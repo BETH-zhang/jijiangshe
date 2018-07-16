@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import moment from 'moment';
 import { connect } from 'dva';
+import get from 'lodash/get';
 import { Link } from 'dva/router';
 import { Row, Col, Card, List, Avatar } from 'antd';
 
@@ -10,33 +11,6 @@ import PageHeaderLayout from '../../layouts/PageHeaderLayout';
 import bethLogo from '../../assets/beth.jpeg';
 
 import styles from './Links.less';
-
-const links = [
-  {
-    title: '操作一',
-    href: '',
-  },
-  {
-    title: '操作二',
-    href: '',
-  },
-  {
-    title: '操作三',
-    href: '',
-  },
-  {
-    title: '操作四',
-    href: '',
-  },
-  {
-    title: '操作五',
-    href: '',
-  },
-  {
-    title: '操作六',
-    href: '',
-  },
-];
 
 const members = [
   {
@@ -71,33 +45,32 @@ const members = [
   },
 ];
 
-@connect(({ project, activities, chart, loading }) => {
-  // console.log(links, loading, '????');
+@connect(({ links, tags, activities, chart, loading }) => {
   return {
-    project,
     activities,
     chart,
-    // links,
-    projectLoading: loading.effects['project/fetchNotice'],
+    links,
+    tags,
     activitiesLoading: loading.effects['activities/fetchList'],
-    // linksLoading: loading.effects['links/fetchList'],
+    linksLoading: loading.effects['links/fetchAllLinks'],
+    tagsLoading: loading.effects['tags/fetchTags'],
   };
 })
 export default class Workplace extends PureComponent {
   componentDidMount() {
     const { dispatch } = this.props;
     dispatch({
-      type: 'project/fetchNotice',
-    });
-    dispatch({
       type: 'activities/fetchList',
     });
     dispatch({
       type: 'chart/fetch',
     });
-    // dispatch({
-    //   type: 'links/fetchList',
-    // });
+    dispatch({
+      type: 'links/fetchAllLinks',
+    });
+    dispatch({
+      type: 'tags/fetchTags',
+    });
   }
 
   componentWillUnmount() {
@@ -146,8 +119,10 @@ export default class Workplace extends PureComponent {
 
   render() {
     const {
-      project: { notice },
-      projectLoading,
+      tags,
+      links,
+      linksLoading,
+      tagsLoading,
       activitiesLoading,
       chart: { radarData },
     } = this.props;
@@ -188,39 +163,46 @@ export default class Workplace extends PureComponent {
       <PageHeaderLayout content={pageHeaderContent} extraContent={extraContent}>
         <Row gutter={24}>
           <Col xl={16} lg={24} md={24} sm={24} xs={24}>
-            <Card
-              className={styles.projectList}
-              style={{ marginBottom: 24 }}
-              title="进行中的项目"
-              bordered={false}
-              extra={<Link to="/">全部项目</Link>}
-              loading={projectLoading}
-              bodyStyle={{ padding: 0 }}
-            >
-              {notice.map(item => (
-                <Card.Grid className={styles.projectGrid} key={item.id}>
-                  <Card bodyStyle={{ padding: 0 }} bordered={false}>
-                    <Card.Meta
-                      title={
-                        <div className={styles.cardTitle}>
-                          <Avatar size="small" src={item.logo} />
-                          <Link to={item.href}>{item.title}</Link>
-                        </div>
-                      }
-                      description={item.description}
-                    />
-                    <div className={styles.projectItemContent}>
-                      <Link to={item.memberLink}>{item.member || ''}</Link>
-                      {item.updatedAt && (
-                        <span className={styles.datetime} title={item.updatedAt}>
-                          {moment(item.updatedAt).fromNow()}
-                        </span>
-                      )}
-                    </div>
-                  </Card>
-                </Card.Grid>
-              ))}
-            </Card>
+            {Object.keys(links.list).map(tagId => (
+              <Card
+                className={styles.projectList}
+                style={{ marginBottom: 24 }}
+                title={get(tags.list, [tagId, 0, 'name'])}
+                bordered={false}
+                extra
+                loading={linksLoading || tagsLoading}
+                bodyStyle={{ padding: 0 }}
+              >
+                {links.list[tagId].map(item => (
+                  <Card.Grid className={styles.projectGrid} key={item.id}>
+                    <Card bodyStyle={{ padding: 0 }} bordered={false}>
+                      <Card.Meta
+                        style={{ minHeight: '76px' }}
+                        title={
+                          <div className={styles.cardTitle}>
+                            <Avatar
+                              size="small"
+                              src={item.logo}
+                              style={{ backgroundColor: 'gainsboro' }}
+                            />
+                            <a href={item.link}>{item.title}</a>
+                          </div>
+                        }
+                        description={item.description}
+                      />
+                      <div className={styles.projectItemContent}>
+                        <a>{item.member || 'beth'}</a>
+                        {item.updatedAt && (
+                          <span className={styles.datetime} title={item.updatedAt}>
+                            {moment(item.updatedAt).fromNow()}
+                          </span>
+                        )}
+                      </div>
+                    </Card>
+                  </Card.Grid>
+                ))}
+              </Card>
+            ))}
             <Card
               bodyStyle={{ padding: 0 }}
               bordered={false}
@@ -236,11 +218,11 @@ export default class Workplace extends PureComponent {
           <Col xl={8} lg={24} md={24} sm={24} xs={24}>
             <Card
               style={{ marginBottom: 24 }}
-              title="快速开始 / 便捷导航"
+              title="所有标签"
               bordered={false}
               bodyStyle={{ padding: 0 }}
             >
-              <EditableLinkGroup onAdd={() => {}} links={links} linkElement={Link} />
+              <EditableLinkGroup onAdd={() => {}} links={tags.list || []} />
             </Card>
             <Card
               style={{ marginBottom: 24 }}

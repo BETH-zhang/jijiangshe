@@ -2,25 +2,25 @@ import { queryAllList } from '../services/api';
 import { arrayToObjectByField } from '../utils/utils';
 
 export default {
-  namespace: 'links',
+  namespace: 'tags',
 
   state: {
     list: {},
   },
 
   effects: {
-    *fetchAllLinks(_, { call, put }) {
-      const response = yield call(queryAllList, { sql: 'WebSite' });
-      const links = arrayToObjectByField(response.data, 'tagId', 'tagId');
+    *fetchTags(_, { call, put }) {
+      const response = yield call(queryAllList, { sql: 'Tag' });
+      const tags = arrayToObjectByField(response.data.slice(0), 'id');
       yield put({
-        type: 'saveAllLinks',
-        payload: links,
+        type: 'saveTags',
+        payload: tags,
       });
     },
   },
 
   reducers: {
-    saveAllLinks(state, action) {
+    saveTags(state, action) {
       return {
         ...state,
         list: action.payload,

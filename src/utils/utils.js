@@ -1,5 +1,8 @@
 import moment from 'moment';
 import { parse, stringify } from 'qs';
+import attempt from 'lodash/attempt';
+import sortBy from 'lodash/sortBy';
+import isFunction from 'lodash/isFunction';
 
 export function fixedZero(val) {
   return val * 1 < 10 ? `0${val}` : val;
@@ -180,3 +183,148 @@ const reg = /(((^https?:(?:\/\/)?)(?:[-;:&=\+\$,\w]+@)?[A-Za-z0-9.-]+(?::\d+)?|(
 export function isUrl(path) {
   return reg.test(path);
 }
+
+// qiuge.me
+
+// 获取url的参数
+export const queryString = () => {
+  const qs = {};
+  const query = window.location.search.substr(1);
+  if (!query) {
+    return {};
+  }
+  const vars = query.split('&');
+  vars.forEach(v => {
+    const pair = v.split('=');
+    if (!qs[pair[0]]) {
+      qs[pair[0]] = decodeURIComponent(pair[1]);
+    } else if (typeof qs[pair[0]] === 'string') {
+      const arr = [qs[pair[0]], decodeURIComponent(pair[1])];
+      qs[pair[0]] = arr;
+    } else {
+      qs[pair[0]].push(decodeURIComponent(pair[1]));
+    }
+  });
+  return qs;
+};
+
+// 处理重复请求
+window.firstTime = {};
+export const onlyOneRequest = key => ({
+  start: (request, params) => {
+    if (!window.firstTime || !window.firstTime[key]) {
+      window.firstTime[key] = true;
+      request(params);
+    }
+  },
+  pause: () => {
+    window.firstTime[key] = false;
+  },
+});
+
+// 金额转换
+export const priceFormat = value => {
+  let v = '';
+  let j = '';
+  let sj = '';
+  let rv = '';
+  v = value.replace(/,/g, '').split('.');
+  j = v[0].length % 3;
+  sj = v[0].substr(j).toString();
+
+  for (let i = 0; i < sj.length; i += 1) {
+    rv = i % 3 === 0 ? `${rv},${sj.substr(i, 1)}` : rv + sj.substr(i, 1);
+  }
+  let rvalue = v[1] === undefined ? v[0].substr(0, j) + rv : `${v[0].substr(0, j)}${rv}.${v[1]}`;
+  if (rvalue.charCodeAt(0) === 44) {
+    rvalue = rvalue.substr(1);
+  }
+  return rvalue;
+};
+
+// 电话转换
+export const phoneFormat = value => {
+  const val = `${value}`;
+  if (isNaN(Number(value))) {
+    return val;
+  } else if (val.length === 11) {
+    return `${val.substr(0, 3)}-${val.substr(3, 4)}-${val.substr(7, 4)}`;
+  } else if (val.length === 12) {
+    return `${val.substr(0, 4)}-${val.substr(4, 8)}`;
+  }
+  return val;
+};
+
+// 获取上传文件
+export const upload = (evt, callback) => {
+  const file = evt.currentTarget.files[0];
+  const reader = new FileReader();
+  reader.onload = () => {
+    const formData = new FormData();
+    formData.append('file', file);
+    callback(formData, file);
+  };
+  reader.readAsDataURL(file);
+};
+
+export const getSelectOptions = len => {
+  let ary = [];
+  if (len < 11) {
+    ary = Array(len)
+      .fill(0)
+      .map((item, index) => index + 1);
+  } else if (len > 10) {
+    const ary1 = [1];
+    const len1 = Math.floor(len / 10);
+    const ary2 = Array(len1)
+      .fill(0)
+      .map((item, index) => (index + 1) * 10);
+    const len2 = len % 10;
+    // const ary3 = len2 ? Array(len2).fill(0).map((item, index) => (len1 * 10 + (index + 1))) : [];
+    const ary3 = len2 ? [] : [len1 * 10 + len2];
+    ary = ary1.concat(ary2).concat(ary3);
+  }
+  return ary;
+};
+
+// lodash封装的parse
+export const parseLodash = str => {
+  return attempt(JSON.parse.bind(null, str));
+};
+
+// 根据field字段将数组转换成对象
+export const arrayToObjectByField = (list, field, sort) => {
+  const data = sort ? sortBy(list, item => item[sort]) : list;
+  const obj = {};
+  let key = null;
+  let ary = [];
+  data.forEach((item, index) => {
+    const keyTmp = isFunction(field) ? field(item) : item[field];
+    if (data.length - 1 === index && keyTmp === key) {
+      ary.push(item);
+      obj[key] = ary;
+    } else if (!index) {
+      key = keyTmp;
+      ary.push(item);
+      if (data.length - 1 === index) {
+        obj[key] = ary;
+      }
+    } else if (keyTmp !== key) {
+      // 保存上一份记录
+      obj[key] = ary;
+      ary = [];
+      // 重新进行保存
+      ary.push(item);
+      key = keyTmp;
+      if (data.length - 1 === index) {
+        obj[key] = ary;
+      }
+    } else {
+      ary.push(item);
+    }
+  });
+  return obj;
+};
+
+// 驼峰转下划线大写
+export const toUnderlineUpper = value => value.replace(/([A-Z])/g, '_$1').toUpperCase();

@@ -22,15 +22,14 @@ class EditableLinkGroup extends PureComponent {
     const { links, linkElement, onAdd } = this.props;
     return (
       <div className={styles.linkGroup}>
-        {links.map(link =>
+        {Object.keys(links).map(key =>
           createElement(
             linkElement,
             {
-              key: `linkGroup-item-${link.id || link.title}`,
-              to: link.href,
-              href: link.href,
+              key: `tag-item-${key || links[key][0].name}`,
+              title: links[key][0].type,
             },
-            link.title
+            links[key][0].name
           )
         )}
         {

@@ -3,7 +3,7 @@ import assign from 'lodash/assign';
 import request from '../utils/request';
 import config from '../common/config';
 
-export async function queryList(params) {
+export async function queryAllList(params) {
   return request(
     `${config.api}/api/common/gets?${stringify(
       assign(params, {
@@ -23,7 +23,7 @@ export async function queryDetail(params) {
   );
 }
 
-export async function addData(params) {
+export async function createItem(params) {
   return request(
     `${config.api}/api/common/post?${stringify({
       token: config.token,
@@ -36,7 +36,7 @@ export async function addData(params) {
   );
 }
 
-export async function addDatas(params) {
+export async function createList(params) {
   return request(
     `${config.api}/api/common/posts?${stringify({
       token: config.token,
@@ -51,7 +51,7 @@ export async function addDatas(params) {
   );
 }
 
-export async function updateData(params) {
+export async function updateDetail(params) {
   return request(
     `${config.api}/api/common/update?${stringify({
       token: config.token,
@@ -64,7 +64,7 @@ export async function updateData(params) {
   );
 }
 
-export async function deleteData(params) {
+export async function deleteItem(params) {
   return request(
     `${config.api}/api/common/delete?${stringify({
       token: config.token,
