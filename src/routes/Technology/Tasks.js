@@ -13,7 +13,9 @@ import {
   Icon,
   Dropdown,
   Menu,
-  Avatar,
+  Checkbox,
+  Select,
+  DatePicker,
 } from 'antd';
 
 import PageHeaderLayout from '../../layouts/PageHeaderLayout';
@@ -23,12 +25,22 @@ import styles from './Tasks.less';
 const RadioButton = Radio.Button;
 const RadioGroup = Radio.Group;
 const { Search } = Input;
+const { Option } = Select;
 
-@connect(({ list, loading }) => ({
+@connect(({ list, tasks, tags, loading }) => ({
   list,
+  tasks,
+  tags,
   loading: loading.models.list,
+  tasksLoading: loading.effects['tasks/fetchTasks'],
+  tagsLoading: loading.effects['tags/fetchTags'],
 }))
 export default class Tasks extends PureComponent {
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
+
   componentDidMount() {
     const { dispatch } = this.props;
     dispatch({
@@ -37,12 +49,48 @@ export default class Tasks extends PureComponent {
         count: 5,
       },
     });
+    dispatch({
+      type: 'tasks/fetchTasks',
+    });
+    dispatch({
+      type: 'tags/fetchTags',
+    });
   }
+
+  openAddTask = () => {
+    const {
+      dispatch,
+      tasks: { addTask },
+    } = this.props;
+    dispatch({
+      type: 'tasks/addTask',
+      payload: !addTask,
+    });
+    dispatch({
+      type: 'tasks/cancelAddTask',
+    });
+  };
+
+  addTaskData = payload => {
+    const { dispatch } = this.props;
+    dispatch({
+      type: 'tasks/addData',
+      payload,
+    });
+  };
+
+  addTask = () => {
+    const { dispatch } = this.props;
+    dispatch({
+      type: 'tasks/fetchAddTask',
+    });
+  };
 
   render() {
     const {
-      list: { list },
-      loading,
+      tasks: { list, addTask, data },
+      tasksLoading,
+      tags,
     } = this.props;
 
     const Info = ({ title, value, bordered }) => (
@@ -64,25 +112,25 @@ export default class Tasks extends PureComponent {
       </div>
     );
 
-    const paginationProps = {
-      showSizeChanger: true,
-      showQuickJumper: true,
-      pageSize: 5,
-      total: 50,
-    };
+    const paginationProps = null;
 
-    const ListContent = ({ data: { owner, createdAt, percent, status } }) => (
+    const ListContent = ({ data: { userId, createdAt, percent, status } }) => (
       <div className={styles.listContent}>
         <div className={styles.listContentItem}>
           <span>Owner</span>
-          <p>{owner}</p>
+          <p>{userId}</p>
         </div>
         <div className={styles.listContentItem}>
           <span>开始时间</span>
           <p>{moment(createdAt).format('YYYY-MM-DD HH:mm')}</p>
         </div>
         <div className={styles.listContentItem}>
-          <Progress percent={percent} status={status} strokeWidth={6} style={{ width: 180 }} />
+          <Progress
+            percent={percent || 100}
+            status={status}
+            strokeWidth={6}
+            style={{ width: 180 }}
+          />
         </div>
       </div>
     );
@@ -124,6 +172,53 @@ export default class Tasks extends PureComponent {
           </Card>
 
           <Card
+            title="添加任务"
+            bordered={false}
+            style={{ display: addTask ? 'block' : 'none', marginTop: 24 }}
+          >
+            <Row>
+              <Col sm={7} offset={1}>
+                <Input
+                  placeholder="添加任务"
+                  value={data.task}
+                  onChange={e => this.addTaskData({ task: e.target.value })}
+                />
+              </Col>
+              <Col sm={7} offset={1}>
+                <Select
+                  defaultValue="请选择分类"
+                  value={data.tagId}
+                  style={{ width: '100%' }}
+                  onChange={val => this.addTaskData({ tagId: val })}
+                >
+                  {tags.list.map(
+                    item =>
+                      item.type === 'todo' ? <Option key={item.id}>{item.name}</Option> : null
+                  )}
+                </Select>
+              </Col>
+              <Col sm={7} offset={1}>
+                <DatePicker
+                  value={data.deadline ? moment(data.deadline) : moment()}
+                  style={{ width: '100%' }}
+                  onChange={m => this.addTaskData({ deadline: m.format() })}
+                />
+              </Col>
+
+              <Col sm={24} style={{ textAlign: 'center' }}>
+                <Button
+                  type="primary"
+                  onClick={this.addTask}
+                  style={{ marginTop: '24px' }}
+                  icon="plus"
+                >
+                  提交
+                </Button>
+              </Col>
+            </Row>
+          </Card>
+
+          <Card
             className={styles.listCard}
             bordered={false}
             title="标准列表"
@@ -131,21 +226,27 @@ export default class Tasks extends PureComponent {
             bodyStyle={{ padding: '0 32px 40px 32px' }}
             extra={extraContent}
           >
-            <Button type="dashed" style={{ width: '100%', marginBottom: 8 }} icon="plus">
-              添加
+            <Button
+              type="dashed"
+              onClick={this.openAddTask}
+              style={{ width: '100%', marginBottom: 8 }}
+              icon="plus"
+            >
+              {addTask ? '取消添加' : '添加'}
             </Button>
+
             <List
               size="large"
               rowKey="id"
-              loading={loading}
+              loading={tasksLoading}
               pagination={paginationProps}
               dataSource={list}
               renderItem={item => (
                 <List.Item actions={[<a>编辑</a>, <MoreBtn />]}>
                   <List.Item.Meta
-                    avatar={<Avatar src={item.logo} shape="square" size="large" />}
-                    title={<a href={item.href}>{item.title}</a>}
-                    description={item.subDescription}
+                    avatar={<Checkbox />}
+                    title={<span>{item.task}</span>}
+                    description={item.description}
                   />
                   <ListContent data={item} />
                 </List.Item>

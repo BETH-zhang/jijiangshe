@@ -45,17 +45,15 @@ const members = [
   },
 ];
 
-@connect(({ links, tags, tasks, activities, chart, loading }) => {
+@connect(({ links, tags, activities, chart, loading }) => {
   return {
     activities,
     chart,
     links,
     tags,
-    tasks,
     activitiesLoading: loading.effects['activities/fetchList'],
     linksLoading: loading.effects['links/fetchAllLinks'],
     tagsLoading: loading.effects['tags/fetchTags'],
-    tasksLoading: loading.effects['mytasks/fetchTasks'],
   };
 })
 export default class Workplace extends PureComponent {
@@ -72,9 +70,6 @@ export default class Workplace extends PureComponent {
     });
     dispatch({
       type: 'tags/fetchTags',
-    });
-    dispatch({
-      type: 'tasks/fetchTasks',
     });
   }
 
@@ -172,7 +167,7 @@ export default class Workplace extends PureComponent {
               <Card
                 className={styles.projectList}
                 style={{ marginBottom: 24 }}
-                title={get(tags.list, [tagId, 0, 'name'])}
+                title={get(tags.data, [tagId, 0, 'name'])}
                 bordered={false}
                 extra
                 loading={linksLoading || tagsLoading}
@@ -227,7 +222,7 @@ export default class Workplace extends PureComponent {
               bordered={false}
               bodyStyle={{ padding: 0 }}
             >
-              <EditableLinkGroup onAdd={() => {}} links={tags.list || []} />
+              <EditableLinkGroup onAdd={() => {}} links={tags.data} />
             </Card>
             <Card
               style={{ marginBottom: 24 }}

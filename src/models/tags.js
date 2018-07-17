@@ -5,7 +5,8 @@ export default {
   namespace: 'tags',
 
   state: {
-    list: {},
+    list: [],
+    data: {},
   },
 
   effects: {
@@ -16,11 +17,21 @@ export default {
         type: 'saveTags',
         payload: tags,
       });
+      yield put({
+        type: 'saveTagsList',
+        payload: response.data || [],
+      });
     },
   },
 
   reducers: {
     saveTags(state, action) {
+      return {
+        ...state,
+        data: action.payload,
+      };
+    },
+    saveTagsList(state, action) {
       return {
         ...state,
         list: action.payload,
