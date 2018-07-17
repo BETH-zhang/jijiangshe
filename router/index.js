@@ -1,19 +1,7 @@
 const Router = require('koa-router')
 const router = new Router()
-const callback = require('../controller/callback')
 
 router.get('/healthCheck', ctx => {ctx.body = 'ok'})
-
-router.all('/callback/echo', callback.echo)
-
-router.get('/api/test/statistics', callback.saveStatistics);
-
-router.get('/api/common/get', callback.getItem);
-router.get('/api/common/gets', callback.getLists);
-router.post('/api/common/post', callback.postItem);
-router.post('/api/common/posts', callback.postLists);
-router.post('/api/common/delete', callback.deleteItem);
-router.post('/api/common/update', callback.updateItem);
 
 // 用户相关
 router.use(
@@ -21,10 +9,10 @@ router.use(
   require('./common').routes()
 );
 
-// 分享相关
+// Log相关
 router.use(
-  '/api/share',
-  require('./share').routes()
+  '/api/statistics',
+  require('./statistics').routes()
 );
 
 // 人工智能相关
