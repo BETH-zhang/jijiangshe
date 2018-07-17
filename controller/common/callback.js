@@ -1,4 +1,5 @@
 'use strict'
+const sortBy = require('lodash/sortBy');
 const validator = require('../../utils/validator');
 const config = require('../../config/my');
 const models = sequelize.models;
@@ -35,7 +36,7 @@ exports.getLists = async (ctx) => {
   const token = ctx.request.query.token;
   if (models[sqlName] && token === config.token) {
     const res = await models[sqlName].findAll() || [];
-    ctx.data = res;
+    ctx.data = sortBy(res, function(item) { return -item.updatedAt });
   } else {
     ctx.body = { code: 1 }
   }
