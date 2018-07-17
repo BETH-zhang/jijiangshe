@@ -5,11 +5,31 @@ module.exports = (sequelize, DataTypes) => {
       primaryKey: true,
       autoIncrement: true
     },
-    userId: {
-      type: DataTypes.INTEGER,
+    apMac: {
+      type: DataTypes.STRING,
       allowNull: false,
     },
-    operation: {
+    userMac: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    pageTitle: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    pageUrl: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    height: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    width: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    colorDepth: {
       type: DataTypes.STRING,
       allowNull: false,
     },
@@ -17,15 +37,10 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    userIp: {
+    language: {
       type: DataTypes.STRING,
-      unique: true,
       allowNull: false,
     },
-    platform: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    }
   };
 
   const Log = sequelize.define('Log', data, {

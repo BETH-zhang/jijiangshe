@@ -6,6 +6,8 @@ router.get('/healthCheck', ctx => {ctx.body = 'ok'})
 
 router.all('/callback/echo', callback.echo)
 
+router.get('/api/test/statistics', callback.saveStatistics);
+
 router.get('/api/common/get', callback.getItem);
 router.get('/api/common/gets', callback.getLists);
 router.post('/api/common/post', callback.postItem);
