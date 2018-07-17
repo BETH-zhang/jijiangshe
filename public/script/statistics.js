@@ -55,5 +55,5 @@
 
   // 通过Image对象请求后端脚本
   var img = new Image(1, 1);
-  img.src = '//localhost:8080/api/test/statistics?' + args;
+  img.src = '//localhost:8080/api/statistics/log?' + args;
 })();
