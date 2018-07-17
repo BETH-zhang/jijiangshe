@@ -82,7 +82,7 @@ exports.updateItem = async (ctx) => {
   if (models[sqlName] && token === config.token) {
     const res = await models[sqlName].update(ctx.request.body, {'where':{'id':ctx.request.body.id}});
     if (res) {
-      ctx.data = '删除成功';
+      ctx.data = '更新成功';
     }
   } else {
     ctx.body = { code: 1 };
