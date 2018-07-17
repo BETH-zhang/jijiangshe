@@ -1,7 +1,7 @@
 const Router = require('koa-router');
 const router = new Router();
 const collectUserData = require('../../controller/common/collectUserData');
-const callback = require('../controller/common/callback')
+const callback = require('../../controller/common/callback')
 
 router.all('/echo', callback.echo)
 

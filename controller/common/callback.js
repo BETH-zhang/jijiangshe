@@ -1,6 +1,6 @@
 'use strict'
-const validator = require('../utils/validator');
-const config = require('../config/my');
+const validator = require('../../utils/validator');
+const config = require('../../config/my');
 const models = sequelize.models;
 
 /**
