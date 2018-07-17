@@ -15,22 +15,21 @@
 </head>
 
 <body>
-  <div id="copy">copy111</div>
   <div id="root"></div>
 </body>
 
 <script>
   var _maq = _maq || [];
-  _maq.push(['usermac', 'abcdefg']);
-  _maq.push(['apmac', document.getElementById('copy').innerHTML]);
+  _maq.push(['usermac', 'beth']);
+  _maq.push(['apmac', '页面首次加载']);
 
   (function() {
     var ma = document.createElement('script');
     ma.type = 'text/javascript';
     ma.async = true;
     ma.src = '/script/statistics.js';
-    var a = document.getElementsByTagName('script')[0];
-    a.parentNode.insertBefore(ma, a);
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(ma, s);
   })();
 </script>
 </html>

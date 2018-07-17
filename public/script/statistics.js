@@ -25,7 +25,7 @@
   }
   // navigator对象数据
   if (navigator) {
-    params.useragent = navigator.userAgent || '';
+    params.userAgent = navigator.userAgent || '';
     params.platform = navigator.platform || '';
     params.language = navigator.language || '';
   }
@@ -34,10 +34,10 @@
     for (var i in _maq) {
       switch (_maq[i][0]) {
         case 'usermac':
-          params.usermac = _maq[i][1];
+          params.userMac = _maq[i][1];
           break;
         case 'apmac':
-          params.apmac = _maq[i][1];
+          params.apMac = _maq[i][1];
           break;
         default:
           break;
