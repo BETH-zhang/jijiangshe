@@ -1,4 +1,4 @@
-import { checkPermissions } from './CheckPermissions.js';
+import { checkPermissions } from 'components/Authorized/CheckPermissions.js';
 
 const target = 'ok';
 const error = 'error';

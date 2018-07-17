@@ -1,16 +1,16 @@
 import * as numeral from 'numeral';
-export { default as ChartCard } from './ChartCard';
-export { default as Bar } from './Bar';
-export { default as Pie } from './Pie';
-export { default as Radar } from './Radar';
-export { default as Gauge } from './Gauge';
-export { default as MiniArea } from './MiniArea';
-export { default as MiniBar } from './MiniBar';
-export { default as MiniProgress } from './MiniProgress';
-export { default as Field } from './Field';
-export { default as WaterWave } from './WaterWave';
-export { default as TagCloud } from './TagCloud';
-export { default as TimelineChart } from './TimelineChart';
+export { default as ChartCard } from 'components/Charts/ChartCard';
+export { default as Bar } from 'components/Charts/Bar';
+export { default as Pie } from 'components/Charts/Pie';
+export { default as Radar } from 'components/Charts/Radar';
+export { default as Gauge } from 'components/Charts/Gauge';
+export { default as MiniArea } from 'components/Charts/MiniArea';
+export { default as MiniBar } from 'components/Charts/MiniBar';
+export { default as MiniProgress } from 'components/Charts/MiniProgress';
+export { default as Field } from 'components/Charts/Field';
+export { default as WaterWave } from 'components/Charts/WaterWave';
+export { default as TagCloud } from 'components/Charts/TagCloud';
+export { default as TimelineChart } from 'components/Charts/TimelineChart';
 
 declare const yuan: (value: number | string) => string;
 

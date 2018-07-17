@@ -1,6 +1,6 @@
 import React from 'react';
 import { Chart, Tooltip, Geom } from 'bizcharts';
-import autoHeight from '../autoHeight';
+import autoHeight from 'components/Charts/autoHeight';
 import styles from '../index.less';
 
 @autoHeight()

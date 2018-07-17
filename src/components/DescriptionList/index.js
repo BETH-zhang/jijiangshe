@@ -1,5 +1,5 @@
-import DescriptionList from './DescriptionList';
-import Description from './Description';
+import DescriptionList from 'components/DescriptionList/DescriptionList';
+import Description from 'components/DescriptionList/Description';
 
 DescriptionList.Description = Description;
 export default DescriptionList;

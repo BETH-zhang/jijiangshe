@@ -1,4 +1,4 @@
-import { getStrFullLength, cutStrByFullLength } from './index.js';
+import { getStrFullLength, cutStrByFullLength } from 'components/Ellipsis/index.js';
 
 describe('test calculateShowLength', () => {
   it('get full length', () => {

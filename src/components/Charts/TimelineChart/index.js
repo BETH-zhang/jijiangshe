@@ -2,7 +2,7 @@ import React from 'react';
 import { Chart, Tooltip, Geom, Legend, Axis } from 'bizcharts';
 import DataSet from '@antv/data-set';
 import Slider from 'bizcharts-plugin-slider';
-import autoHeight from '../autoHeight';
+import autoHeight from 'components/Charts/autoHeight';
 import styles from './index.less';
 
 @autoHeight()

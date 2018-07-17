@@ -6,7 +6,7 @@ import classNames from 'classnames';
 import ReactFitText from 'react-fittext';
 import Debounce from 'lodash-decorators/debounce';
 import Bind from 'lodash-decorators/bind';
-import autoHeight from '../autoHeight';
+import autoHeight from 'components/Charts/autoHeight';
 
 import styles from './index.less';
 

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import TagSelectOption from './TagSelectOption';
+import TagSelectOption from 'components/TagSelect/TagSelectOption';
 
 export interface ITagSelectProps {
   onChange?: (value: string[]) => void;

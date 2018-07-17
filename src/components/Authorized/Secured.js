@@ -1,6 +1,6 @@
 import React from 'react';
-import Exception from '../Exception/index';
-import CheckPermissions from './CheckPermissions';
+import Exception from 'components/Exception';
+import CheckPermissions from 'components/Authorized/CheckPermissions';
 /**
  * 默认不能访问任何页面
  * default is "NULL"

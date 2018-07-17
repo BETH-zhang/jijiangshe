@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Chart, Tooltip, Geom, Coord, Axis } from 'bizcharts';
 import { Row, Col } from 'antd';
-import autoHeight from '../autoHeight';
+import autoHeight from 'components/Charts/autoHeight';
 import styles from './index.less';
 
 /* eslint react/no-danger:0 */

@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Form, Tabs } from 'antd';
 import classNames from 'classnames';
-import LoginItem from './LoginItem';
-import LoginTab from './LoginTab';
-import LoginSubmit from './LoginSubmit';
+import LoginItem from 'components/Login/LoginItem';
+import LoginTab from 'components/Login/LoginTab';
+import LoginSubmit from 'components/Login/LoginSubmit';
 import styles from './index.less';
 
 class Login extends Component {

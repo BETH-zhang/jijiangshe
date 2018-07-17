@@ -1,5 +1,5 @@
 import React from 'react';
-import CheckPermissions from './CheckPermissions';
+import CheckPermissions from 'components/Authorized/CheckPermissions';
 
 class Authorized extends React.Component {
   render() {

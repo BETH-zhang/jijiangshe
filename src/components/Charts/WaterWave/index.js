@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import autoHeight from '../autoHeight';
+import autoHeight from 'components/Charts/autoHeight';
 import styles from './index.less';
 
 /* eslint no-return-assign: 0 */

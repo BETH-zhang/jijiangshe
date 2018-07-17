@@ -1,5 +1,5 @@
 import React from 'react';
-import NoticeIconTab, { INoticeIconData } from './NoticeIconTab';
+import NoticeIconTab, { INoticeIconData } from 'components/NoticeIcon/NoticeIconTab';
 
 export interface INoticeIconProps {
   count?: number;

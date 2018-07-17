@@ -1,6 +1,6 @@
 import React from 'react';
 import { Chart, Geom, Axis, Coord, Guide, Shape } from 'bizcharts';
-import autoHeight from '../autoHeight';
+import autoHeight from 'components/Charts/autoHeight';
 
 const { Arc, Html, Line } = Guide;
 

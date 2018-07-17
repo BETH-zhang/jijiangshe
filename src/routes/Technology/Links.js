@@ -45,15 +45,17 @@ const members = [
   },
 ];
 
-@connect(({ links, tags, activities, chart, loading }) => {
+@connect(({ links, tags, tasks, activities, chart, loading }) => {
   return {
     activities,
     chart,
     links,
     tags,
+    tasks,
     activitiesLoading: loading.effects['activities/fetchList'],
     linksLoading: loading.effects['links/fetchAllLinks'],
     tagsLoading: loading.effects['tags/fetchTags'],
+    tasksLoading: loading.effects['mytasks/fetchTasks'],
   };
 })
 export default class Workplace extends PureComponent {
@@ -70,6 +72,9 @@ export default class Workplace extends PureComponent {
     });
     dispatch({
       type: 'tags/fetchTags',
+    });
+    dispatch({
+      type: 'tasks/fetchTasks',
     });
   }
 

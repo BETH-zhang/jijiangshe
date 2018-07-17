@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
-import Authorized from './Authorized';
+import Authorized from 'components/Authorized/Authorized';
 
 class AuthorizedRoute extends React.Component {
   render() {

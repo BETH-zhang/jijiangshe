@@ -1,5 +1,5 @@
 import * as React from 'react';
-import AvatarItem from './AvatarItem';
+import AvatarItem from 'components/AvatarList/AvatarItem';
 
 export interface IAvatarListProps {
   size?: 'large' | 'small' | 'mini' | 'default';

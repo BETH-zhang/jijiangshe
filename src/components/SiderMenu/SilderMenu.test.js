@@ -1,5 +1,5 @@
-import { urlToList } from '../_utils/pathTools';
-import { getFlatMenuKeys, getMenuMatchKeys } from './SiderMenu';
+import { urlToList } from 'components/_utils/pathTools';
+import { getFlatMenuKeys, getMenuMatchKeys } from 'components/SiderMenu/SiderMenu';
 
 const menu = [
   {
