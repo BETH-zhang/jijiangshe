@@ -8,11 +8,16 @@ module.exports = (sequelize, DataTypes) => {
     title: {
       type: DataTypes.STRING,
       allowNull: false,
-    },
-    content: {
-      type: DataTypes.STRING,
       unique: true,
+    },
+    fileName: {
+      type: DataTypes.STRING,
       allowNull: false,
+    },
+    style: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      defaultValue: 'markdown',
     },
     logo: {
       type: DataTypes.STRING,

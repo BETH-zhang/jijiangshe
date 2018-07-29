@@ -15,6 +15,12 @@ router.use(
   require('./statistics').routes()
 );
 
+// 文档相关
+router.use(
+  '/api/doc',
+  require('./doc').routes()
+);
+
 // 人工智能相关
 // 数据可视化相关
 // 每周工作记录相关
