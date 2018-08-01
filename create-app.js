@@ -56,6 +56,7 @@ module.exports = () => {
   app.use(cors({ credentials: true }))
   app.use(bodyParser({formLimit: '2mb'}))
   app.use(require('koa-static')(`${ROOT_DIR}/public`));
+  app.use(require('koa-static')(`${ROOT_DIR}/views`));
 
   const router = require('./router') // 因为CFG还没准备好，所以要动态加载，不要放在文件顶部
   app.use(router.routes())

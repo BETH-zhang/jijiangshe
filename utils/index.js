@@ -413,7 +413,8 @@ exports.getHtmlTemplate = (function() {
     html.push('<link rel="icon" href="/favicon.png" type="image/x-icon">');
     html.push('<script src="https://cdn.polyfill.io/v2/polyfill.min.js"></script>');
     html.push('<link href="http://cdn.bootcss.com/highlight.js/8.0/styles/monokai_sublime.min.css" rel="stylesheet">');
-    html.push(`<link href="/markdown-css-themes/${style || 'markdown'}.css" rel="stylesheet">`);
+    html.push(`<link href="/markdown-css-themes/${style || 'markdown'}.css" media="screen" rel="stylesheet">`);
+    html.push(`<link href="/markdown-css-themes/${style || 'markdown'}.css" media="print" rel="stylesheet">`);
     html.push('</head>');
     html.push('<body>');
     html.push(contentHtml);
@@ -441,5 +442,5 @@ exports.createFolder = function (to) {
 };
   
 exports.getRealPath = function(title, postfix) {
-    return path.join(`./public/view/${title}.${postfix || 'html'}`);
+    return path.join(`./views/view/${title}.${postfix || 'html'}`);
 }
