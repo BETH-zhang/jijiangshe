@@ -5,6 +5,8 @@ const app = new Koa()
 const bodyParser = require('koa-bodyparser')
 const cors = require('kcors')
 const moment = require('moment')
+const compress = require('koa-compress')
+const static = require('koa-static-cache')
 
 const ROOT_DIR = path.resolve();
 module.exports = () => {
@@ -55,8 +57,16 @@ module.exports = () => {
 
   app.use(cors({ credentials: true }))
   app.use(bodyParser({formLimit: '2mb'}))
-  app.use(require('koa-static')(`${ROOT_DIR}/public`));
-  app.use(require('koa-static')(`${ROOT_DIR}/views`));
+  // app.use(require('koa-static')(`${ROOT_DIR}/public`));
+  // app.use(require('koa-static')(`${ROOT_DIR}/views`));
+  app.use(static(`${ROOT_DIR}/public`, {
+    maxAge: 360,
+  }))
+  app.use(static(`${ROOT_DIR}/views`, {
+    maxAge: 360,
+  }))
+  const options = { threshold: 2048 }
+  app.use(compress(options))
 
   const router = require('./router') // 因为CFG还没准备好，所以要动态加载，不要放在文件顶部
   app.use(router.routes())
