@@ -1,6 +1,7 @@
 const Koa = require('koa')
 const _ = require('lodash')
 const path = require('path')
+const fs = require('fs')
 const app = new Koa()
 const bodyParser = require('koa-bodyparser')
 const cors = require('kcors')
@@ -69,6 +70,7 @@ module.exports = () => {
   app.use(compress(options))
 
   const router = require('./router') // 因为CFG还没准备好，所以要动态加载，不要放在文件顶部
+  
   app.use(router.routes())
 
   return app

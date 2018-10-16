@@ -16,3 +16,17 @@ exports.sha1 = function sha1 (str) {
   hash.update(str)
   return hash.digest('hex')
 }
+
+exports.promisify = function (nodeFunction) {
+  return function(...args) {
+      return new Promise((resolve, reject) => {
+          nodeFunction.call(this, ...args, (err, data) => {
+              if(err) {
+                  reject(err);
+              } else {
+                  resolve(data);
+              }
+          });
+      });
+  };
+};

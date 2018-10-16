@@ -1,5 +1,17 @@
 const Router = require('koa-router')
+const fs = require('fs')
+const path = require('path')
+const { promisify } = require('../utils/helper')
+
 const router = new Router()
+const rendFile = promisify(fs.readFile);
+
+router.get('/', async ctx => {
+  console.log(ctx.request.path)
+  const data = await rendFile(path.resolve(__dirname, '../public/index.html'), 'utf8');
+  console.log('data:', data);
+  ctx.response.body = data;
+})
 
 router.get('/healthCheck', ctx => {ctx.body = 'ok'})
 
