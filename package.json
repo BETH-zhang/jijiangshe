@@ -20,7 +20,7 @@
     "config": "^1.29.2",
     "consul": "^0.30.0",
     "ioredis": "^3.2.2",
-    "kcors": "^2.2.1",
+    "kcors": "^2.2.2",
     "koa": "^2.4.1",
     "koa-bodyparser": "^4.2.0",
     "koa-compress": "^3.0.0",
