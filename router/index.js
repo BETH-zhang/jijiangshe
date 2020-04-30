@@ -33,6 +33,13 @@ router.use(
   require('./doc').routes()
 );
 
+// 发送自定义消息
+router.use(
+  '/api/robot',
+  require('./robot').routes()
+);
+
+
 // 人工智能相关
 // 数据可视化相关
 // 每周工作记录相关
